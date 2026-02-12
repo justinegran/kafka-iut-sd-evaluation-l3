@@ -71,12 +71,7 @@ helm install my-kafka bitnami/kafka --set image.repository=bitnamilegacy/kafka
 ```
 cd eurynome
 apply -f eurynome-db.yaml
-oc rsh eurynome-db-xxxxxx-yyyy
-$> mysql -uroot -peurynome
-create database eurynome;
-exit
-$> exit
-cat initial-load.sql | oc exec eurynome-db /usr/bin/mysql -ueurynomeuser -peurynomepw eurynome
+cat eurynome.sql | oc exec eurynome-db /usr/bin/mysql -ueurynomeuser -peurynomepw eurynome
 cd ..
 ```
 
@@ -84,12 +79,7 @@ cd ..
 ```
 cd mygreaterp
 apply -f mygreaterp-db.yaml
-oc rsh mygreaterp-db-xxxxxx-yyyy
-$> mysql -uroot -pmygreaterp
-create database mygreaterp;
-exit
-$> exit
-cat initial-load.sql | oc exec mygreaterp-db /usr/bin/mysql -umygreaterpuser -pmygreaterppw mygreaterp
+cat init-mygreaterp.sql | oc exec mygreaterp-db /usr/bin/mysql -umygreaterpuser -pmygreaterppw mygreaterp
 ```
 
 ### Lancement d'un nouveau Workspace OpenShift Dev Spaces
