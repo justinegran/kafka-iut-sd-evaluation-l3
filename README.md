@@ -159,3 +159,7 @@ Creation d'un deploiement de debezium pour lire de manière continue les donnée
 Je vais me connecter à la base de données source, euronyme pour collecter ces données et les insérer dans la base de données destination en passant par un cluster kafka. Je vais déjà stocké les données de la base de données source.
 
 
+Préparation de la base de donnée eurynome (source), j'ai ensuite mis en place debezium pour suivre les evnements das la base source.
+Kafka va ensuite permettre la relation jusqu'à la base de donnée de destination (mygreaterp).
+
+Code python permet de récupérer les données de les découper pour les mettre dans les 3 tables dans myGreatERP.
