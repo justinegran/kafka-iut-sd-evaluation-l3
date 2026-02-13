@@ -1,3 +1,7 @@
 eurynome-db/*
 mygreaterp-db/*
-.gitignore/*
+.idea/.gitignore
+.idea/dataSources.xml
+.idea/kafka-iut-sd-evaluation-l3.iml
+.idea/vcs.xml
+.idea/modules.xml
