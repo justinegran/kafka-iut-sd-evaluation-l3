@@ -9,7 +9,7 @@ topic = 'dbserver1.eurynome.CUSTOMER'
 
 db_config = {
     'user': 'mygreaterpuser',
-    'password': 'mygreaterp',
+    'password': 'mygreaterppw',
     'host': 'mygreaterp-db.gran4u-dev.svc.cluster.local',
     'port': 3306,
     'database': 'mygreaterp'
