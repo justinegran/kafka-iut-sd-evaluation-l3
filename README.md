@@ -16,16 +16,66 @@ Le premier module prévu pour être migrer est le module CRM. En effet le servic
 
 Le logiciel « legacy » repose massivement sur les technologies de la base de données MySQL. Celle-ci est accessible à l’URL suivante : eurynome-db:3306/eurynome.
 
-Il s’agit bien sûr d’une copie partielle de la base de production afin de pouvoir travailler sans risque pour les données.
+Il s’agit bien sûr d’une copie partielle et anonymisée de la base de production afin de pouvoir travailler sans risque pour les données.
+
+La seule table mise à disposition pour le moment est la table clients dont le schéma est le suivant :
+
+```mermaid
+erDiagram
+    CUSTOMER {
+        INT id
+        VARCHAR(255) prenom
+        VARCHAR(255) nom
+        VARCHAR(255) adresse_rue
+        VARCHAR(255) adresse_ville
+        VARCHAR(255) adresse_region
+    }
+```
 
 Le nouveau logiciel, beaucoup plus moderne, repose lui aussi sur une base de données MySQL : mygreaterp-db:3306/mygreaterp
 
-Le but de l’exercice noté est le suivant : nous voulons synchroniser la table des clients de l’ancien vers le nouveau système, en temps réel *tout en conservant le lien entre les clients des deux systèmes dans une base référentielle* installée sur le nouveau serveur MySQL.
+Sa structure de données (les tables sont vides) est définie ci-dessous. A noter que tous les identifiants sont de type UUID.
+
+```mermaid
+erDiagram
+    direction LR
+    contacts {
+        VARCHAR(36) id
+        VARCHAR(255) first_name
+        VARCHAR(255) last_name
+    }
+    contacts |o--|| contacts_addresses : ""
+    contacts_addresses {
+        VARCHAR(36) id
+        VARCHAR(36) contact_id
+        VARCHAR(36) address_id
+    }
+    contacts_addresses ||--o| addresses : ""
+    addresses {
+        VARCHAR(36) id
+        INT number
+        VARCHAR(255) street
+        VARCHAR(255) city
+        VARCHAR(255) state
+    }
+
+```
+
+Le but de l’exercice noté est le suivant : nous voulons synchroniser la table des clients de l’ancien vers le nouveau système, en temps réel **tout en conservant le lien entre les clients des deux systèmes dans une base référentielle**, nommée "referential" installée sur le nouveau serveur MySQL.
+
+La seule table référentielle requises est des plus basique :
+```mermaid
+erDiagram
+    customers_ref {
+        INT eurynome_id
+        VARCHAR(36) mygreaterp_id
+    }
+```
 
 > [!NOTE]
 > Dans MySQL, « SELECT LAST_INSERT_ID() ; » peut être très utile.
 
-Fondamentalement, l'exercice consiste à réaliser le flux d'intégration suivant :
+Pour résumer, l'exercice consiste à réaliser le flux d'intégration suivant :
 ```mermaid
 flowchart LR
   A[(Eurynome)] -->|1| C[?] -->|2| B[(myGreatERP)]
