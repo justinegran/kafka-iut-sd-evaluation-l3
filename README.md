@@ -150,5 +150,12 @@ cd ..
 Pointant cette fois-ci sur votre nouveau repository.
 
 ## Notes de conception
-> [!TIP]
-> Ce paragraphe est le vôtre, vous pouvez y consigner vos notes, réflexion voire présenter succintement l'architecture de votre solution
+
+Déploiement d'un nouveau cluster kafka.
+
+Creation d'un deploiement de debezium pour lire de manière continue les données.
+
+
+Je vais me connecter à la base de données source, euronyme pour collecter ces données et les insérer dans la base de données destination en passant par un cluster kafka. Je vais déjà stocké les données de la base de données source.
+
+
